@@ -1,36 +1,33 @@
 import styles from './index.css';
 import { Component } from 'react';
 import { connect } from 'dva';
-import { Layout, Input } from 'antd';
+import { Layout, Input, Button } from 'antd';
 
-import List from './../pages/index';
-import Gouxuan from './../pages/gouxuan';
-import Notodo from './../pages/notodo';
+
+// import All from './children/All';
+// import Selected from './children/Selected';
+// import Unselected from './children/Unselected';
 
 const { Search } = Input;
 const { Header, Footer, Content } = Layout;
 
-class Listtodo extends Component {
+@connect(state => {
+  return ({
+    list: state.list.list
+  })
+})
+class Bigbox extends Component {
   add = value => {
     let json = {
       val: value,
       isok: true,
     }
-    let str = JSON.stringify(this.props.list);
-    str = JSON.parse(str);
-    str.push(json);
+
     this.props.dispatch({
-      type: 'global/setList',
-      payload: str
+      type: 'list/add',
+      payload: json
     });
-    this.setState({
-      ...this.state,
-      lists: str,
-      one: {
-        name: '全部',
-        list: str
-      }
-    })
+
     this.refs.search.input.state.value = '';
   }
   render() {
@@ -50,14 +47,12 @@ class Listtodo extends Component {
           </Header>
 
           <Content className={styles.box2}>
-            <div className={styles.box3}>
-              <List className={styles.list} />
-              <Gouxuan className={styles.list} />
-              <Notodo className={styles.list} />
-            </div>
+            {this.props.children}
           </Content>
 
-          <Footer>Footer</Footer>
+          <Footer>
+            <Button>history</Button>
+          </Footer>
 
         </Layout>
       </div>
@@ -65,11 +60,5 @@ class Listtodo extends Component {
   }
 }
 
-function todolist(state) {
-  return ({
-    list: state.global.list
-  })
-}
-
-export default connect(todolist)(Listtodo)
+export default Bigbox;
 

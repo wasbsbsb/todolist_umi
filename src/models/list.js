@@ -1,19 +1,34 @@
 export default {
-  namespace: 'global',
+  namespace: 'list',
   state: {
     list: [
       {
-        val: '是的我是的',
+        val: '橘子好吃吃好子橘',
         isok: true,
       }
     ],
   },
   reducers: {
-    setList(state, { payload }) {
+    add(state, { payload }) {
       return {
-        ...state,
-        list: payload,
+        list: [...state.list, payload]
       }
     },
+
+    remove(state, { payload }) {
+      state.list.splice(payload, 1)
+      return {
+        list: [...state.list]
+      }
+    },
+
+    toggle(state, { payload }) {
+      const list = state.list.map((r, index) => {
+        return index === payload ? { ...r, isok: !r.isok } : r
+      })
+
+      return { list }
+    }
+
   }
 };
