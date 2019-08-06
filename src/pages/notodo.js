@@ -5,11 +5,9 @@ import { Checkbox } from 'antd';
 import { Button } from 'antd';
 
 @connect(state => {
-  return ({
-    list: state.global.list
-  })
+  return { list: state.global.list }
 })
-class Listone extends Component {
+class Listtwo extends Component {
   state = {
     size: 'large',
   }
@@ -36,19 +34,23 @@ class Listone extends Component {
     return (
       <div className={styles.box} >
         <h4 className={styles.title}>
-          全部
+          未勾选
         </h4>
         <ul className={styles.ul}>
           {
             this.props.list.map((items, index) => {
-              return (
-                <li key={index} className={styles.li}>
-                  <Checkbox className={styles.select} checked={items.isok} onChange={this.onChange.bind(this, index)}>
-                  </Checkbox>
-                  {items.val}
-                  <Button size={this.state.size} className={styles.left} onClick={this.delet.bind(this, index)}>删除</Button>
-                </li>
-              )
+              if (items.isok === false) {
+                return (
+                  <li key={index} className={styles.li}>
+                    <Checkbox className={styles.select} checked={items.isok} onChange={this.onChange.bind(this, index)}>
+                    </Checkbox>
+                    {items.val}
+                    <Button size={this.state.size} className={styles.left} onClick={this.delet.bind(this, index)}>删除</Button>
+                  </li>
+                )
+              } else {
+                
+              }
             })
           }
         </ul>
@@ -57,5 +59,4 @@ class Listone extends Component {
   }
 }
 
-
-export default Listone;
+export default Listtwo;
