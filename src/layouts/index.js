@@ -2,23 +2,21 @@ import styles from './index.css';
 import { Component } from 'react';
 import { connect } from 'dva';
 import { Layout, Input, Button } from 'antd';
-
-
-// import All from './children/All';
-// import Selected from './children/Selected';
-// import Unselected from './children/Unselected';
+import Link from 'umi/link';
 
 const { Search } = Input;
 const { Header, Footer, Content } = Layout;
 
 @connect(state => {
-  return ({
+  return {
     list: state.list.list
-  })
+  }
 })
 class Bigbox extends Component {
+
   add = value => {
     let json = {
+      listIndex: this.props.list.listIndex + 1,
       val: value,
       isok: true,
     }
@@ -31,6 +29,7 @@ class Bigbox extends Component {
     this.refs.search.input.state.value = '';
   }
   render() {
+    const { pathname } = this.props.location
     return (
       <div className={styles.box}>
         <Layout className={styles.box}>
@@ -51,7 +50,13 @@ class Bigbox extends Component {
           </Content>
 
           <Footer>
-            <Button>history</Button>
+
+            <Button>
+              <Link to={pathname === '/' ? '/historys' : '/'}>
+                history
+              </Link>
+            </Button>
+
           </Footer>
 
         </Layout>

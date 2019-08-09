@@ -3,3 +3,49 @@
   height: 680px;
   margin: 0 auto;
 }
+
+.box4{
+  width: 100%;
+  height: 600px;
+  overflow: auto;
+}
+.historys,
+.headerLists{
+  width: 100%;
+  height: 60px;
+}
+.historysList,
+.headerList{
+  height: 60px;
+  width: 120px;
+  background: pink;
+  list-style: none;
+  float: left;
+  line-height: 60px;
+  text-align: center;
+}
+.historysList:nth-child(1),
+.headerList:nth-child(1){
+  width: 120px;
+}
+.historysList:nth-child(2),
+.headerList:nth-child(2){
+  width: 160px;
+}
+.historysList:nth-child(3),
+.headerList:nth-child(3){
+  width: 600px;
+}
+.historysList:nth-child(4),
+.headerList:nth-child(4){
+  width: 100px;
+}
+
+.gobakc{
+  height: 40px;
+  width: 60px;
+  line-height: 40px;
+}
+
+
+
